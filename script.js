@@ -1,27 +1,27 @@
 const lettersUpperCase = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
-    'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+    'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 
 const lettersLowercase = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
-    'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+    'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 
 function setResult(value) {
     document.getElementById('result').setAttribute('value', value);
     result = '';
-}
+};
 
 function exit() {
     window.close();
-}
+};
 
 function checkCesar(message, key) {
     if (message == "") {
         alert("Insira um texto!!!");
         return false;
-    }
+    };
     if (key < 1 || key > 25) {
         alert("A chave deve ser um número entre 1 e 25!!!");
         return false;
-    }
+    };
     return true;
 };
 
@@ -29,21 +29,21 @@ function checkVigenere(message, key) {
     if (message == "") {
         alert("Insira um texto!!!");
         return false;
-    }
+    };
     if (key.length < 8 || key.length > 15) {
         alert("A chave deve conter de 8 a 15 letras!!!");
         return false;
-    }
+    };
     return true;
-}
+};
 
 
 function uppercase(char) {
     if (char >= "A" && char <= "Z") {
         return true;
-    }
+    };
     return false;
-}
+};
 
 //function that implement de encrypt cipher cesar
 function encryptCesar() {
@@ -59,22 +59,24 @@ function encryptCesar() {
             } else {
                 if (uppercase(char)) {
                     index = lettersUpperCase.indexOf(char);
-                    if (index + Number(key) > 25) {
+                    if ((index + key.length) > 25) {
                         index = index - 26;
-                    }
-                    result = `${result}${lettersUpperCase[index + Number(key)]}`;
+                    };
+                    result = `${result}${lettersUpperCase[index + key.length]}`;
                 } else {
                     index = lettersLowercase.indexOf(char);
-                    if (index + Number(key) > 25) {
+                    if ((index + key.length) > 25) {
                         index = index - 26;
-                    }
-                    result = `${result}${lettersLowercase[index + Number(key)]}`;
-                }
-            }
-        }
-        setResult(result)
-    }
-}
+                    };
+                    result = `${result}${lettersLowercase[index + key.length]}`;
+                };
+            };
+        };
+        console.log(result);
+        setResult(result);
+        return 0;
+    };
+};
 
 //function that implement de decrypt cipher cesar
 function decryptCesar() {
@@ -88,15 +90,16 @@ function decryptCesar() {
     for (let i = 0; i < message.length; i++) {
         let c = message.charCodeAt(i);
         if (c >= 65 && c <= 90) {
-            result += String.fromCharCode((c - 65 - key + 26) % 26 + 65);
+            result += String.fromCharCode((c - 65 - key.length + 26) % 26 + 65);
         } else if (c >= 97 && c <= 122) {
-            result += String.fromCharCode((c - 97 - key + 26) % 26 + 97);
+            result += String.fromCharCode((c - 97 - key.length + 26) % 26 + 97);
         } else {
             result += message.charAt(i);
-        }
-    }
+        };
+    };
     setResult(result);
-}
+    return 0;
+};
 
 //function that implement de encrypt cipher vigenere
 function encryptVigenere() {
@@ -124,6 +127,7 @@ function encryptVigenere() {
             }
         }
         setResult(result);
+        return 0;
     }
 
 
@@ -158,5 +162,6 @@ function decryptVigenere() {
             }
         }
         setResult(result);
+        return 0;
     }
 }
